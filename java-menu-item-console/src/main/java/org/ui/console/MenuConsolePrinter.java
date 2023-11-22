@@ -23,6 +23,8 @@ public class MenuConsolePrinter {
 
     private String itemSeparator = " ";
 
+    private int incSpacesToIdent = 2;
+
     private boolean showItemHeaderName = true;
 
     private boolean itemHeaderNameLineBreak = true;
@@ -37,16 +39,49 @@ public class MenuConsolePrinter {
 
     private boolean itemsOnOneLine = false;
 
-    public String render(MenuItem item) {
+    private boolean expandChildren = false;
+
+    public MenuConsolePrinter() {
+    }
+
+    public MenuConsolePrinter(MenuConsolePrinter other) {
+        this.itemNameBracketLeft = other.itemNameBracketLeft;
+        this.itemNameBracketRight = other.itemNameBracketRight;
+        this.itemHeaderNameJoin = other.itemHeaderNameJoin;
+        this.indexBracketLeft = other.indexBracketLeft;
+        this.indexBracketRight = other.indexBracketRight;
+        this.indexJoin = other.indexJoin;
+        this.itemSeparator = other.itemSeparator;
+        this.incSpacesToIdent = other.incSpacesToIdent;
+        this.showItemHeaderName = other.showItemHeaderName;
+        this.itemHeaderNameLineBreak = other.itemHeaderNameLineBreak;
+        this.showIndexes = other.showIndexes;
+        this.showItemsIds = other.showItemsIds;
+        this.startIndexAtZero = other.startIndexAtZero;
+        this.showItemsNames = other.showItemsNames;
+        this.itemsOnOneLine = other.itemsOnOneLine;
+        this.expandChildren = other.expandChildren;
+    }
+
+    public String render(MenuItem item, int numSpacesToIdent) {
         StringBuilder out = new StringBuilder();
+        String ident = " ".repeat(numSpacesToIdent);
         if (showItemHeaderName) {
+            out.append(ident);
             out.append(itemNameBracketLeft);
             out.append(item.getName());
             out.append(itemNameBracketRight);
             out.append(!itemHeaderNameLineBreak ? itemHeaderNameJoin : '\n');
         }
         if (showItemsIds || showItemsNames) {
+            if (itemsOnOneLine) {
+                out.append(ident);
+            }
+            int childNumSpacesToIdent = (numSpacesToIdent + incSpacesToIdent);
             for (int i = 0; i < item.numItems(); i++) {
+                if (!itemsOnOneLine) {
+                    out.append(ident);
+                }
                 if (showIndexes) {
                     out.append(indexBracketLeft);
                     out.append(showItemsIds ? item.getItem(i).getId() : (startIndexAtZero ? i : i + 1));
@@ -57,11 +92,28 @@ public class MenuConsolePrinter {
                     out.append(item.getItem(i).getName());
                 }
                 out.append(itemsOnOneLine ? itemSeparator : '\n');
+                if (expandChildren) {
+                    MenuConsolePrinter mcp = new MenuConsolePrinter(this);
+                    mcp.setShowItemHeaderName(false);
+                    String child = mcp.render(item.getItem(i), itemsOnOneLine ? 0 : childNumSpacesToIdent);
+                    if (itemsOnOneLine) {
+                        out.append(itemSeparator);
+                    }
+                    out.append(child);
+                }
                 //out.append('(').append(i + 1).append(") ").append(item.getItem(i).getName()).append('\n'); // <- Indices
                 //out.append('(').append(item.getItem(i).getId()).append(") ").append(item.getItem(i).getName()); // <- IDs
             }
         }
         return out.toString();
+    }
+
+    public String render(MenuItem item) {
+        return render(item, 0);
+    }
+
+    public void show(MenuItem item, int numSpacesToIdent) {
+        System.out.print(render(item, numSpacesToIdent));
     }
 
     public void show(MenuItem item) {
@@ -189,4 +241,19 @@ public class MenuConsolePrinter {
         this.itemsOnOneLine = itemsOnOneLine;
     }
 
+    public boolean isExpandChildren() {
+        return expandChildren;
+    }
+
+    public void setExpandChildren(boolean expandChildren) {
+        this.expandChildren = expandChildren;
+    }
+
+    public int getIncSpacesToIdent() {
+        return incSpacesToIdent;
+    }
+
+    public void setIncSpacesToIdent(int incSpacesToIdent) {
+        this.incSpacesToIdent = incSpacesToIdent;
+    }
 }

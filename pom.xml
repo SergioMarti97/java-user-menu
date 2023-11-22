@@ -11,7 +11,7 @@
 
     <modules>
         <module>java-menu-item</module>
-        <module>java-menu-item-console-printer</module>
+        <module>java-menu-item-console</module>
     </modules>
 
     <dependencies>
