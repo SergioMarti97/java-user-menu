@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<menu_item id="-1" name="Menu">
+    <menu_item id="1" name="Listar archivos y directorios"/>
+    <menu_item id="2" name="Menu Archivos">
+        <menu_item id="3" name="Crear fichero"/>
+        <menu_item id="4" name="Obtener propiedades/información de un archivo"/>
+        <menu_item id="5" name="Eliminar archivos"/>
+    </menu_item>
+    <menu_item id="6" name="Menu Directorios">
+        <menu_item id="7" name="Crear directorio"/>
+        <menu_item id="8" name="Obtener propiedades/información de un directorio"/>
+        <menu_item id="9" name="Eliminar directorios"/>
+    </menu_item>
+    <menu_item id="10" name="Cambiar directorio de trabajo"/>
+    <menu_item id="-1" name="Salir"/>
+</menu_item>
