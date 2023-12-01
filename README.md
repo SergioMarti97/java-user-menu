@@ -16,11 +16,11 @@ eficiente sistemas de navegación jerárquica en sus aplicaciones. Es decir, los
  
 Se han tratado de seguir los principios SOLID para favorecer la máxima reutilización del proyecto.
 
-##Contenido
+## Contenido
 
 Este repositorio contiene las siguientes clases:
 
-###### Lógica interna
+### Lógica interna
 - **MenuItem**: representa un item simple del menu; una de las opciones. Contiene un identificador (*id*) y un nombre 
   (*name*), que es el que se muestra en el menu. Puede contener hijos, es decir, submenus. Por lo tanto, es un objeto 
   con una estructura de árbol, recursiva.
@@ -28,7 +28,7 @@ Este repositorio contiene las siguientes clases:
 - **MenuManager**: es el gestor del menu. Gestiona una instancia de *MenuItem* para poder recorrer la estructura de árbol. 
   Por ejemplo, se puede recorrer el menu desde el elemento padre, a un elemento hijo, y después volver al padre.
 
-###### Persistencia de datos
+### Persistencia de datos
 
 Los menus se pueden guardar como archivos *xml*.
 
@@ -40,7 +40,7 @@ Los menus se pueden guardar como archivos *xml*.
   
 - **MenuItemXMLUtils**: esta clase contiene funciones y campos estáticos útiles para trabajar con archivos *xml*.
 
-###### Consola
+### Consola
 
 El módulo del proyecto "java-menu-item-console" contiene las clases para poder mostrar en consola el menú y que el 
 usuario pueda interactuar con el menú de forma sencilla.
