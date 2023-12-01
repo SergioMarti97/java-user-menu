@@ -1,7 +1,6 @@
 package org.ui.menu.io.write;
 
 import org.ui.menu.MenuItem;
-import org.ui.menu.io.MenuItemIO;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -17,7 +16,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
-public class MenuItemWriter extends MenuItemIO {
+import static org.ui.menu.io.MenuItemXMLUtils.*;
+
+public class MenuItemWriter {
 
     private static void writeXml(Document doc, OutputStream output) throws TransformerException {
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
@@ -43,7 +44,7 @@ public class MenuItemWriter extends MenuItemIO {
     public static void save(Document doc, Element e, MenuItem mi) {
         e.setAttribute(ATTR_MENU_ITEM_ID, String.format("%d", mi.getId()));
         e.setAttribute(ATTR_MENU_ITEM_NAME, mi.getName());
-        if (mi.hasChildren()) {
+        if (mi.hasItems()) {
             for (var child : mi.getItems()) {
                 Element e1 = createElement(doc, TAG_MENU_ITEM);
                 save(doc, e1, child);

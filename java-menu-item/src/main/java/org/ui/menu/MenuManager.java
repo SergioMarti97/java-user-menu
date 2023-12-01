@@ -62,17 +62,14 @@ public class MenuManager {
         }
     }
 
-    /*public void show() {
-        if (menus.isEmpty()) {
-            return;
-        }
-        menus.peek().show();
-    }*/
-
     // Getters
 
     public Stack<MenuItem> getStack() {
         return menus;
+    }
+
+    public int getPeekNumChildren() {
+        return menus.peek().numItems();
     }
 
 }

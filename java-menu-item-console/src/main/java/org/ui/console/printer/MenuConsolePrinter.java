@@ -1,4 +1,4 @@
-package org.ui.console;
+package org.ui.console.printer;
 
 import org.ui.menu.MenuItem;
 import org.ui.menu.MenuManager;
@@ -82,16 +82,19 @@ public class MenuConsolePrinter {
                 if (!itemsOnOneLine) {
                     out.append(ident);
                 }
+
+                out.append(indexBracketLeft);
                 if (showIndexes) {
-                    out.append(indexBracketLeft);
                     out.append(showItemsIds ? item.getItem(i).getId() : (startIndexAtZero ? i : i + 1));
-                    out.append(indexBracketRight);
-                    out.append(indexJoin);
                 }
+                out.append(indexBracketRight);
+                out.append(indexJoin);
+
                 if (showItemsNames) {
                     out.append(item.getItem(i).getName());
                 }
                 out.append(itemsOnOneLine ? itemSeparator : '\n');
+
                 if (expandChildren) {
                     MenuConsolePrinter mcp = new MenuConsolePrinter(this);
                     mcp.setShowItemHeaderName(false);
@@ -256,4 +259,15 @@ public class MenuConsolePrinter {
     public void setIncSpacesToIdent(int incSpacesToIdent) {
         this.incSpacesToIdent = incSpacesToIdent;
     }
+
+    /*public void show() {
+        StringBuilder out = new StringBuilder();
+        out.append("# --- ").append(name).append(" --- #\n");
+        for (int i = 0; i < items.size(); i++) {
+            // Indices
+            out.append('(').append(i + 1).append(") ").append(items.get(i).getName()).append('\n');
+        }
+        System.out.print(out);
+    }*/
+
 }

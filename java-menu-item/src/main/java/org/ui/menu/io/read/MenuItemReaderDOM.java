@@ -1,7 +1,6 @@
 package org.ui.menu.io.read;
 
 import org.ui.menu.MenuItem;
-import org.ui.menu.io.MenuItemIO;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -11,7 +10,9 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 
-public class MenuItemReaderDOM extends MenuItemIO {
+import static org.ui.menu.io.MenuItemXMLUtils.*;
+
+public class MenuItemReaderDOM {
 
     public static void parseMenuItem(MenuItem mi, Element root) {
         String id = root.getAttribute(ATTR_MENU_ITEM_ID);

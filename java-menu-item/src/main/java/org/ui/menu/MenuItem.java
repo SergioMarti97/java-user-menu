@@ -80,30 +80,20 @@ public class MenuItem {
     }
 
     public MenuItem onConfirm(int index) {
-        if (getItem(index).hasChildren()) {
+        if (getItem(index).hasItems()) {
             return getItem(index);
         } else {
             return this;
         }
     }
 
-    public boolean hasChildren() {
+    public boolean hasItems() {
         return !itemPointer.isEmpty();
     }
 
-    public int numChildren() {
+    public int numItems() {
         return items.size();
     }
-
-    /*public void show() {
-        StringBuilder out = new StringBuilder();
-        out.append("# --- ").append(name).append(" --- #\n");
-        for (int i = 0; i < items.size(); i++) {
-            // Indices
-            out.append('(').append(i + 1).append(") ").append(items.get(i).getName()).append('\n');
-        }
-        System.out.print(out);
-    }*/
 
     // Getters
 
@@ -121,10 +111,6 @@ public class MenuItem {
 
     public ArrayList<MenuItem> getItems() {
         return items;
-    }
-
-    public int numItems() {
-        return items.size();
     }
 
     @Override

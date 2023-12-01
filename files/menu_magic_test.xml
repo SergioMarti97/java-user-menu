@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<menu_item id="-1" name="Main">
+    <menu_item id="101" name="Attack"/>
+    <menu_item id="0" name="Magic">
+        <menu_item id="0" name="White">
+            <menu_item id="401" name="Cure"/>
+            <menu_item id="402" name="Cura"/>
+            <menu_item id="403" name="Curaga"/>
+            <menu_item id="404" name="Esuna"/>
+        </menu_item>
+        <menu_item id="0" name="Black">
+            <menu_item id="201" name="Fire"/>
+            <menu_item id="202" name="Fira"/>
+            <menu_item id="203" name="Firaga"/>
+            <menu_item id="204" name="Blizzard"/>
+            <menu_item id="205" name="Blizzara"/>
+            <menu_item id="206" name="Blizzaga"/>
+            <menu_item id="207" name="Thunder"/>
+            <menu_item id="208" name="Thundara"/>
+            <menu_item id="209" name="Thundaga"/>
+            <menu_item id="210" name="Quake"/>
+            <menu_item id="211" name="Quake2"/>
+            <menu_item id="212" name="Quake3"/>
+            <menu_item id="213" name="Bio"/>
+            <menu_item id="214" name="Bio1"/>
+            <menu_item id="215" name="Bio2"/>
+            <menu_item id="216" name="Demi"/>
+            <menu_item id="217" name="Demi1"/>
+            <menu_item id="218" name="Demi2"/>
+        </menu_item>
+    </menu_item>
+    <menu_item id="103" name="Defend"/>
+    <menu_item id="0" name="Items">
+        <menu_item id="301" name="Potion"/>
+        <menu_item id="302" name="Ether"/>
+        <menu_item id="303" name="Elixir"/>
+    </menu_item>
+</menu_item>

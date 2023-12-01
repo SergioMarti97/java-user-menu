@@ -1,4 +1,4 @@
-package org.ui.console;
+package org.ui.console.input;
 
 import java.util.Scanner;
 
@@ -6,7 +6,7 @@ import java.util.Scanner;
  * Esta clase contiene funciones útiles para
  * la interacción usuario - consola
  */
-public class UserConsoleUtils {
+public class UserInputConsoleUtils {
 
     public static Scanner scan = new Scanner(System.in);
 
