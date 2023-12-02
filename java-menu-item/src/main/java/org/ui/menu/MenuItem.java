@@ -1,5 +1,7 @@
 package org.ui.menu;
 
+import org.geom.vector.vec2d.Vec2di;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -7,27 +9,27 @@ import java.util.HashMap;
  * Esta clase es la representación de un item o objeto
  * el cual pertenece a un menu
  */
-public class MenuItem {
+public class MenuItem implements IGetSize {
 
     /**
      * El identificador del item
      */
-    private int id = -1;
+    protected int id = -1;
 
     /**
      * El nombre del item
      */
-    private String name;
+    protected String name;
 
     /**
      * Hash map del nombre del objeto y su indice
      */
-    private final HashMap<String, Integer> itemPointer = new HashMap<>();
+    protected final HashMap<String, Integer> itemPointer = new HashMap<>();
 
     /**
      * Una lista con todos los items que pertence a este item
      */
-    private final ArrayList<MenuItem> items = new ArrayList<>();
+    protected final ArrayList<MenuItem> items = new ArrayList<>();
 
     /**
      * Constructor vacio
@@ -116,6 +118,12 @@ public class MenuItem {
     @Override
     public String toString() {
         return name + " children: " + items.size();
+    }
+
+    @Override
+    public Vec2di getSize() {
+        // Por ahora, las opciones son simplemente una línea de texto
+        return new Vec2di(name.length(), 1);
     }
 
 }

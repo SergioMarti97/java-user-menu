@@ -16,4 +16,14 @@
         <maven.compiler.target>11</maven.compiler.target>
     </properties>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.geom</groupId>
+            <artifactId>java-geom-vectors</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${maven.local.repository}/org/geom/java-geom-vectors/1.0/java-geom-vectors-1.0.jar</systemPath>
+        </dependency>
+    </dependencies>
+
 </project>

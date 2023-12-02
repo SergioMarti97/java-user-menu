@@ -16,6 +16,8 @@ eficiente sistemas de navegación jerárquica en sus aplicaciones. Es decir, los
  
 Se han tratado de seguir los principios SOLID para favorecer la máxima reutilización del proyecto.
 
+Inspirado en: [Programming a Retro Pop-Up Menu System](https://github.com/OneLoneCoder/Javidx9/blob/master/PixelGameEngine/SmallerProjects/OneLoneCoder_PGE_RetroMenu.cpp)
+
 ## Contenido
 
 Este repositorio contiene las siguientes clases:

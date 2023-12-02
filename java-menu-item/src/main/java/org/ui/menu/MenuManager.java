@@ -14,7 +14,7 @@ public class MenuManager {
      * La mejor opción para trabajar con los menus es un Stack:
      * First In, First Out.
      */
-    private final Stack<MenuItem> menus;
+    protected final Stack<MenuItem> menus;
 
     /**
      * Constructor

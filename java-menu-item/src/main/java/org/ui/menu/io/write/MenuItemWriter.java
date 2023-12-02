@@ -41,9 +41,14 @@ public class MenuItemWriter {
         return doc.createElement(tagName);
     }
 
-    public static void save(Document doc, Element e, MenuItem mi) {
+    private static void setElementAttributes(Element e, MenuItem mi) {
         e.setAttribute(ATTR_MENU_ITEM_ID, String.format("%d", mi.getId()));
         e.setAttribute(ATTR_MENU_ITEM_NAME, mi.getName());
+        // todo: implementar atributos diferentes para otros tipos de MenuItems
+    }
+
+    public static void save(Document doc, Element e, MenuItem mi) {
+        setElementAttributes(e, mi);
         if (mi.hasItems()) {
             for (var child : mi.getItems()) {
                 Element e1 = createElement(doc, TAG_MENU_ITEM);
