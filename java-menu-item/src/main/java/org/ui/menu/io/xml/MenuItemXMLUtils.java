@@ -1,4 +1,4 @@
-package org.ui.menu.io;
+package org.ui.menu.io.xml;
 
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;

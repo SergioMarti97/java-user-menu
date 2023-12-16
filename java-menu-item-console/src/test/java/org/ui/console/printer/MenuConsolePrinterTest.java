@@ -1,7 +1,7 @@
 package org.ui.console.printer;
 
 import org.junit.jupiter.api.Test;
-import org.ui.menu.io.read.MenuItemReaderDOM;
+import org.ui.menu.io.xml.read.MenuItemReaderXmlDOM;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -13,7 +13,7 @@ class MenuConsolePrinterTest {
 
     @Test
     void show() throws ParserConfigurationException, IOException, SAXException {
-        var mi = MenuItemReaderDOM.read(filename);
+        var mi = MenuItemReaderXmlDOM.read(filename);
         MenuConsolePrinter mcp = new MenuConsolePrinter();
         mcp.setIndexBracketLeft("[");
         mcp.setIndexBracketRight("]");

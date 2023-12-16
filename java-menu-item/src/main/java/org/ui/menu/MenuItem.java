@@ -4,12 +4,13 @@ import org.geom.vector.vec2d.Vec2di;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 /**
  * Esta clase es la representación de un item o objeto
  * el cual pertenece a un menu
  */
-public class MenuItem implements IGetSize {
+public class MenuItem implements IGetSize, IEnable {
 
     /**
      * El identificador del item
@@ -20,6 +21,11 @@ public class MenuItem implements IGetSize {
      * El nombre del item
      */
     protected String name;
+
+    /**
+     * Si la opción está disponible o no
+     */
+    protected boolean isEnabled = true;
 
     /**
      * Hash map del nombre del objeto y su indice
@@ -116,14 +122,47 @@ public class MenuItem implements IGetSize {
     }
 
     @Override
+    public Vec2di getSize() {
+        // Por ahora, las opciones son simplemente una línea de texto
+        return new Vec2di(name.length(), 1);
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return isEnabled;
+    }
+
+    @Override
+    public void setEnabled(boolean b) {
+        isEnabled = b;
+    }
+
+    @Override
+    public void disable() {
+        isEnabled = false;
+    }
+
+    @Override
+    public void enable() {
+        isEnabled = true;
+    }
+
+    @Override
     public String toString() {
         return name + " children: " + items.size();
     }
 
     @Override
-    public Vec2di getSize() {
-        // Por ahora, las opciones son simplemente una línea de texto
-        return new Vec2di(name.length(), 1);
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof MenuItem)) return false;
+        MenuItem menuItem = (MenuItem) o;
+        return getId() == menuItem.getId() && isEnabled() == menuItem.isEnabled() && Objects.equals(getName(), menuItem.getName()) && Objects.equals(getItemPointer(), menuItem.getItemPointer()) && Objects.equals(getItems(), menuItem.getItems());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getName(), isEnabled(), getItemPointer(), getItems());
     }
 
 }

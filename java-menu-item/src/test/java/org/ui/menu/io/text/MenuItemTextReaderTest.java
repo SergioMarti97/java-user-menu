@@ -1,11 +1,12 @@
 package org.ui.menu.io.text;
 
 import org.junit.jupiter.api.Test;
-import org.ui.menu.io.read.MenuItemReaderDOM;
+import org.ui.menu.io.xml.read.MenuItemReaderXmlDOM;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
+import java.util.Stack;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -22,7 +23,7 @@ class MenuItemTextReaderTest {
 
     @Test
     void read() throws ParserConfigurationException, IOException, SAXException {
-        var mi1 = MenuItemReaderDOM.read(filenameXml);
+        var mi1 = MenuItemReaderXmlDOM.read(filenameXml);
         var mi2 = MenuItemTextReader.read(filenameTxt);
         assertEquals(mi1.numItems(), mi2.numItems());
     }

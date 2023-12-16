@@ -3,7 +3,7 @@ package org.ui.console;
 import org.ui.console.printer.MenuConsolePrinter;
 import org.ui.menu.MenuItem;
 import org.ui.menu.MenuManager;
-import org.ui.menu.io.read.MenuItemReaderDOM;
+import org.ui.menu.io.xml.read.MenuItemReaderXmlDOM;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -16,7 +16,7 @@ public class UserMenuTest {
     static String filename = "C:\\Users\\Sergio\\IdeaProjects\\java-user-interface\\files\\menu_magic_test.xml";
 
     public static void main(String[] args) throws ParserConfigurationException, IOException, SAXException {
-        MenuManager mm = new MenuManager(MenuItemReaderDOM.read(filename));
+        MenuManager mm = new MenuManager(MenuItemReaderXmlDOM.read(filename));
 
         MenuConsolePrinter mcp = new MenuConsolePrinter();
 

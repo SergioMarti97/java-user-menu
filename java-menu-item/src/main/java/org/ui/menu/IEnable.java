@@ -1,4 +1,4 @@
-package org.ui.menu.enable;
+package org.ui.menu;
 
 /**
  * Esta clase implementa la funcionalidad para poder activar o desactivar una opción

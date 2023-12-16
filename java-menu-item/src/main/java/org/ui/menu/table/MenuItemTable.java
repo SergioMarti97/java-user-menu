@@ -2,7 +2,6 @@ package org.ui.menu.table;
 
 import org.geom.vector.vec2d.Vec2di;
 import org.ui.menu.MenuItem;
-import org.ui.menu.cursor.ICursor;
 
 public class MenuItemTable extends MenuItem implements ITable<MenuItem> {
 

@@ -77,7 +77,7 @@ package org.ui.console;
 import org.ui.console.printer.MenuConsolePrinter;
 import org.ui.menu.MenuItem;
 import org.ui.menu.MenuManager;
-import org.ui.menu.io.read.MenuItemReaderDOM;
+import org.ui.menu.io.xml.read.MenuItemReaderXmlDOM;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;

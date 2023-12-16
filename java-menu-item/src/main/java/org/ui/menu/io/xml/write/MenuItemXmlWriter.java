@@ -1,4 +1,4 @@
-package org.ui.menu.io.write;
+package org.ui.menu.io.xml.write;
 
 import org.ui.menu.MenuItem;
 import org.w3c.dom.Document;
@@ -16,9 +16,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import static org.ui.menu.io.MenuItemXMLUtils.*;
+import static org.ui.menu.io.xml.MenuItemXMLUtils.*;
 
-public class MenuItemWriter {
+public class MenuItemXmlWriter {
 
     private static void writeXml(Document doc, OutputStream output) throws TransformerException {
         TransformerFactory transformerFactory = TransformerFactory.newInstance();

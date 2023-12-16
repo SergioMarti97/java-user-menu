@@ -5,8 +5,7 @@ import org.ui.menu.MenuItem;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Stack;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -23,38 +22,48 @@ public class MenuItemTextReader {
         return count;
     }
 
-    public static MenuItem parseMenuItem(MenuItem mi, List<String> info, int row, int level) {
-        String line = info.get(row);
-        int ident = countIdent(line);
-        line = line.replaceAll(TABULATION_PATTERN.pattern(), "");
-
-        if (ident == level) {
-            mi.setName(line);
-        } else if (ident > level) {
-            MenuItem child = new MenuItem();
-            mi.add(child);
-        }
-
-        return null;
-    }
-
     public static MenuItem read(String filename) {
-        List<String> info = new ArrayList<>();
+        MenuItem mi = null;
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
-            String line;
-            do {
-                line = br.readLine();
-                if (line != null) {
-                    System.out.println(line);
-                    info.add(line);
+            Stack<MenuItem> stack = new Stack<>();
+
+            int count = 0, actualLevel = 0;
+            String line = br.readLine();
+            while (line != null) {
+                int ident = countIdent(line);
+                line = line.replaceAll(TABULATION_PATTERN.pattern(), "");
+
+                if (count == 0) {
+                    actualLevel = ident;
+                    mi = new MenuItem(line);
+                    stack.push(mi);
                 } else {
-                    break;
+                    /*if (ident == actualLevel) {
+                        stack.pop();
+                    } else if (ident < actualLevel) {
+                        stack.pop();
+                        stack.pop();
+                    }*/ // código anterior
+                    // código nuevo
+                    if (ident <= actualLevel) {
+                        stack.pop();
+                        if (ident != actualLevel) {
+                            stack.pop();
+                        }
+                    }
+
+                    MenuItem child = stack.peek().add(line);
+                    stack.push(child);
+                    actualLevel = ident;
                 }
-            } while (true);
+
+                line = br.readLine();
+                count++;
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return parseMenuItem(new MenuItem(), info, 0, 0);
+        return mi;
     }
 
 }
