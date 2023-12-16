@@ -13,7 +13,7 @@ class MenuConsolePrinterTest {
 
     @Test
     void show() throws ParserConfigurationException, IOException, SAXException {
-        var mi = MenuItemReaderXmlDOM.read(filename);
+        var mi = new MenuItemReaderXmlDOM().read(filename);
         MenuConsolePrinter mcp = new MenuConsolePrinter();
         mcp.setIndexBracketLeft("[");
         mcp.setIndexBracketRight("]");

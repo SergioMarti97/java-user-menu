@@ -9,16 +9,21 @@ import java.util.*;
 
 public class MenuItemWriterText {
 
-    public static String IDENT_STR = "    ";
+    private String ident = "    ";
 
-    public static String SEP_STR = " ";
+    private String SEP_STR = " ";
 
-    public static String toString(MenuItem mi, int ident) {
+    private boolean isWriteWithDeque = false;
+
+    private String toString(MenuItem mi, int ident) {
         // return String.format("%s%d%s%s\n", IDENT_STR.repeat(ident), mi.getId(), SEP_STR, mi.getName());
-        return String.format("%s%s\n", IDENT_STR.repeat(ident), mi.getName());
+        return String.format("%s%s\n", this.ident.repeat(ident), mi.getName());
     }
 
-    public static void write(BufferedWriter bw, MenuItem mi, int ident) throws IOException {
+    /**
+     * Esta función es recursiva
+     */
+    public void write(BufferedWriter bw, MenuItem mi, int ident) throws IOException {
         bw.write(toString(mi, ident));
         if (mi.hasItems()) {
             ident++;
@@ -28,15 +33,10 @@ public class MenuItemWriterText {
         }
     }
 
-    public static void write(String filename, MenuItem mi) {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filename))) {
-            write(bw, mi, 0);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void writeDeque(BufferedWriter bw, MenuItem mi, int ident) throws IOException {
+    /**
+     * Esta función no es recursiva
+     */
+    public void writeDeque(BufferedWriter bw, MenuItem mi, int ident) throws IOException {
         if (mi == null) {
             return;
         }
@@ -58,12 +58,34 @@ public class MenuItemWriterText {
         }
     }
 
-    public static void writeDeque(String filename, MenuItem mi) {
+    public void write(String filename, MenuItem mi) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(filename))) {
-            writeDeque(bw, mi, 0);
+            if (isWriteWithDeque) {
+                writeDeque(bw, mi, 0);
+            } else {
+                write(bw, mi, 0);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    // Getter & Setter
+
+    public String getIdent() {
+        return ident;
+    }
+
+    public void setIdent(String ident) {
+        this.ident = ident;
+    }
+
+    public boolean isWriteWithDeque() {
+        return isWriteWithDeque;
+    }
+
+    public void setWriteWithDeque(boolean writeWithDeque) {
+        isWriteWithDeque = writeWithDeque;
     }
 
 }

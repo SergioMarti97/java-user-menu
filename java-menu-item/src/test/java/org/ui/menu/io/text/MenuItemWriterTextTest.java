@@ -19,24 +19,31 @@ class MenuItemWriterTextTest {
 
     static String filename2 = "C:\\Users\\Sergio\\IdeaProjects\\java-user-interface\\files\\menu_test_gen.txt";
 
+    static MenuItemReaderText r = new MenuItemReaderText();
+
+    static MenuItemWriterText w = new MenuItemWriterText();
+
     @Test
     void write() {
-        MenuItem mi1 = MenuItemReaderText.read(filename1);
-        MenuItemWriterText.write(filename2, mi1);
-        MenuItem mi2 = MenuItemReaderText.read(filename2);
+        MenuItem mi1 = r.read(filename1);
+        w.write(filename2, mi1);
+        MenuItem mi2 = r.read(filename2);
         assertEquals(mi1.numItems(), mi2.numItems());
     }
 
     @Test
     void writeDeque() throws ParserConfigurationException, IOException, SAXException {
-        MenuItem mi = MenuItemReaderXmlDOM.read(filenameXml);
-        MenuItemWriterText.writeDeque(filename2, mi);
+        MenuItem mi = new MenuItemReaderXmlDOM().read(filenameXml);
+        boolean prev = w.isWriteWithDeque();
+        w.setWriteWithDeque(true);
+        w.write(filename2, mi);
+        w.setWriteWithDeque(prev);
     }
 
     @Test
     void xmlToText() throws ParserConfigurationException, IOException, SAXException {
-        MenuItem mi = MenuItemReaderXmlDOM.read(filenameXml);
-        MenuItemWriterText.write(filename2, mi);
+        MenuItem mi = new MenuItemReaderXmlDOM().read(filenameXml);
+        w.write(filename2, mi);
     }
 
 }

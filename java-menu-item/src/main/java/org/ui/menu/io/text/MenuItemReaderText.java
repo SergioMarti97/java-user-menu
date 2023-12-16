@@ -11,12 +11,12 @@ import java.util.regex.Pattern;
 
 public class MenuItemReaderText {
 
-    public static Pattern FOUR_SPACES_PATTERN = Pattern.compile("^ {4}");
+    private Pattern identPattern = Pattern.compile("^ {4}");
 
-    public static String SEP_STR = " ";
+    private String SEP_STR = " ";
 
-    public static int countIdent(String line) {
-        Matcher countIdentMatcher = FOUR_SPACES_PATTERN.matcher(line);
+    public int countIdent(String line) {
+        Matcher countIdentMatcher = identPattern.matcher(line);
         int count = 0;
         while (countIdentMatcher.find()) {
             count++;
@@ -24,7 +24,7 @@ public class MenuItemReaderText {
         return count;
     }
 
-    public static MenuItem read(String filename) {
+    public MenuItem read(String filename) {
         MenuItem mi = null;
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
             Stack<MenuItem> stack = new Stack<>();
@@ -33,7 +33,7 @@ public class MenuItemReaderText {
             String line = br.readLine();
             while (line != null) {
                 int ident = countIdent(line);
-                line = line.replaceAll(FOUR_SPACES_PATTERN.pattern(), "");
+                line = line.replaceAll(identPattern.pattern(), "");
 
                 if (count == 0) {
                     actualLevel = ident;
@@ -68,6 +68,16 @@ public class MenuItemReaderText {
             e.printStackTrace();
         }
         return mi;
+    }
+
+    // Getter & Setter
+
+    public Pattern getIdentPattern() {
+        return identPattern;
+    }
+
+    public void setIdentPattern(Pattern identPattern) {
+        this.identPattern = identPattern;
     }
 
 }

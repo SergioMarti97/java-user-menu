@@ -2,7 +2,6 @@ package org.ui.menu.io.xml.read;
 
 import org.junit.jupiter.api.Test;
 import org.ui.menu.MenuTestUtils;
-import org.ui.menu.io.xml.read.MenuItemReaderXmlDOM;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -16,7 +15,7 @@ class MenuItemReaderXmlDOMTest {
 
     @Test
     void read() throws ParserConfigurationException, IOException, SAXException {
-        var mi = MenuItemReaderXmlDOM.read(path);
+        var mi = new MenuItemReaderXmlDOM().read(path);
         assertEquals(mi, MenuTestUtils.buildTestMenuItem());
     }
 

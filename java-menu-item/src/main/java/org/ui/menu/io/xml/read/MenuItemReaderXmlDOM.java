@@ -14,7 +14,7 @@ import static org.ui.menu.io.xml.MenuItemXMLUtils.*;
 
 public class MenuItemReaderXmlDOM {
 
-    public static void parseMenuItem(MenuItem mi, Element root) {
+    public void parseMenuItem(MenuItem mi, Element root) {
         String id = root.getAttribute(ATTR_MENU_ITEM_ID);
         if (!id.equals("")) {
             mi.setId(Integer.parseInt(id));
@@ -37,7 +37,7 @@ public class MenuItemReaderXmlDOM {
         }
     }
 
-    public static MenuItem read(String filename) throws ParserConfigurationException, IOException, SAXException {
+    public MenuItem read(String filename) throws ParserConfigurationException, IOException, SAXException {
         Document doc = getDocument(filename);
         MenuItem mi = new MenuItem();
         parseMenuItem(mi, doc.getDocumentElement());

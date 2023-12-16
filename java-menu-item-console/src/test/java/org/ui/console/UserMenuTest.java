@@ -16,7 +16,7 @@ public class UserMenuTest {
     static String filename = "C:\\Users\\Sergio\\IdeaProjects\\java-user-interface\\files\\menu_magic_test.xml";
 
     public static void main(String[] args) throws ParserConfigurationException, IOException, SAXException {
-        MenuManager mm = new MenuManager(MenuItemReaderXmlDOM.read(filename));
+        MenuManager mm = new MenuManager(new MenuItemReaderXmlDOM().read(filename));
 
         MenuConsolePrinter mcp = new MenuConsolePrinter();
 

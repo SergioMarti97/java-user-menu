@@ -15,15 +15,17 @@ class MenuItemReaderTextTest {
 
     static String filenameTxt = "C:\\Users\\Sergio\\IdeaProjects\\java-user-interface\\files\\menu_test.txt";
 
+    static MenuItemReaderText reader = new MenuItemReaderText();
+
     @Test
     void countIdent() {
-        assertEquals(MenuItemReaderText.countIdent("        Crear fichero"), 2);
+        assertEquals(reader.countIdent("        Crear fichero"), 2);
     }
 
     @Test
     void read() throws ParserConfigurationException, IOException, SAXException {
-        var mi1 = MenuItemReaderXmlDOM.read(filenameXml);
-        var mi2 = MenuItemReaderText.read(filenameTxt);
+        var mi1 = new MenuItemReaderXmlDOM().read(filenameXml);
+        var mi2 = reader.read(filenameTxt);
         assertEquals(mi1.numItems(), mi2.numItems());
     }
 

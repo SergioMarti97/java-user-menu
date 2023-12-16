@@ -5,7 +5,7 @@ import org.ui.menu.MenuTestUtils;
 
 import javax.xml.parsers.ParserConfigurationException;
 
-class MenuItemXmlWriterTest {
+class MenuItemWriterXmlTest {
 
     String path = "C:\\Users\\Sergio\\IdeaProjects\\java-user-interface\\files\\menu_test.xml";
 
@@ -13,7 +13,7 @@ class MenuItemXmlWriterTest {
     void save() {
         var mi = MenuTestUtils.buildTestMenuItem();
         try {
-            MenuItemXmlWriter.save(mi, path);
+            new MenuItemWriterXml().save(mi, path);
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
         }

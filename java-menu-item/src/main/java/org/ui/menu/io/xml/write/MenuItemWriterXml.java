@@ -18,9 +18,9 @@ import java.io.OutputStream;
 
 import static org.ui.menu.io.xml.MenuItemXMLUtils.*;
 
-public class MenuItemXmlWriter {
+public class MenuItemWriterXml {
 
-    private static void writeXml(Document doc, OutputStream output) throws TransformerException {
+    private void writeXml(Document doc, OutputStream output) throws TransformerException {
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
         Transformer transformer = transformerFactory.newTransformer();
         transformer.setOutputProperty(OutputKeys.INDENT, "yes");
@@ -29,7 +29,7 @@ public class MenuItemXmlWriter {
         transformer.transform(source, result);
     }
 
-    private static void writeXml(Document doc, String path) {
+    private void writeXml(Document doc, String path) {
         try (FileOutputStream output = new FileOutputStream(path)) {
             writeXml(doc, output);
         } catch (IOException | TransformerException e) {
@@ -37,17 +37,17 @@ public class MenuItemXmlWriter {
         }
     }
 
-    private static Element createElement(Document doc, String tagName) {
+    private Element createElement(Document doc, String tagName) {
         return doc.createElement(tagName);
     }
 
-    private static void setElementAttributes(Element e, MenuItem mi) {
+    private void setElementAttributes(Element e, MenuItem mi) {
         e.setAttribute(ATTR_MENU_ITEM_ID, String.format("%d", mi.getId()));
         e.setAttribute(ATTR_MENU_ITEM_NAME, mi.getName());
         // todo: implementar atributos diferentes para otros tipos de MenuItems
     }
 
-    public static void save(Document doc, Element e, MenuItem mi) {
+    public void save(Document doc, Element e, MenuItem mi) {
         setElementAttributes(e, mi);
         if (mi.hasItems()) {
             for (var child : mi.getItems()) {
@@ -58,13 +58,13 @@ public class MenuItemXmlWriter {
         }
     }
 
-    public static Element save(Document doc, MenuItem mi) {
+    public Element save(Document doc, MenuItem mi) {
         Element menu = doc.createElement(TAG_MENU_ITEM);
         save(doc, menu, mi);
         return menu;
     }
 
-    public static void save(MenuItem mi, String path) throws ParserConfigurationException {
+    public void save(MenuItem mi, String path) throws ParserConfigurationException {
         DocumentBuilder db = getDocumentBuilder();
         Document doc = db.newDocument();
         doc.appendChild(save(doc, mi));
