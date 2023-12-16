@@ -6,11 +6,10 @@ import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
-import java.util.Stack;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class MenuItemTextReaderTest {
+class MenuItemReaderTextTest {
 
     static String filenameXml = "C:\\Users\\Sergio\\IdeaProjects\\java-user-interface\\files\\menu_test.xml";
 
@@ -18,13 +17,13 @@ class MenuItemTextReaderTest {
 
     @Test
     void countIdent() {
-        assertEquals(MenuItemTextReader.countIdent("        Crear fichero"), 2);
+        assertEquals(MenuItemReaderText.countIdent("        Crear fichero"), 2);
     }
 
     @Test
     void read() throws ParserConfigurationException, IOException, SAXException {
         var mi1 = MenuItemReaderXmlDOM.read(filenameXml);
-        var mi2 = MenuItemTextReader.read(filenameTxt);
+        var mi2 = MenuItemReaderText.read(filenameTxt);
         assertEquals(mi1.numItems(), mi2.numItems());
     }
 

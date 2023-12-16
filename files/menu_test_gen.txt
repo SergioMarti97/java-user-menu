@@ -1,0 +1,12 @@
+Menu
+    Salir
+    Cambiar directorio de trabajo
+    Menu Directorios
+        Eliminar directorios
+        Obtener propiedades/información de un directorio
+        Crear directorio
+    Menu Archivos
+        Eliminar archivos
+        Obtener propiedades/información de un archivo
+        Crear fichero
+    Listar archivos y directorios

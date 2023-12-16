@@ -9,12 +9,14 @@ import java.util.Stack;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class MenuItemTextReader {
+public class MenuItemReaderText {
 
-    public static Pattern TABULATION_PATTERN = Pattern.compile(" {4}");
+    public static Pattern FOUR_SPACES_PATTERN = Pattern.compile("^ {4}");
+
+    public static String SEP_STR = " ";
 
     public static int countIdent(String line) {
-        Matcher countIdentMatcher = TABULATION_PATTERN.matcher(line);
+        Matcher countIdentMatcher = FOUR_SPACES_PATTERN.matcher(line);
         int count = 0;
         while (countIdentMatcher.find()) {
             count++;
@@ -31,7 +33,7 @@ public class MenuItemTextReader {
             String line = br.readLine();
             while (line != null) {
                 int ident = countIdent(line);
-                line = line.replaceAll(TABULATION_PATTERN.pattern(), "");
+                line = line.replaceAll(FOUR_SPACES_PATTERN.pattern(), "");
 
                 if (count == 0) {
                     actualLevel = ident;
@@ -45,10 +47,12 @@ public class MenuItemTextReader {
                         stack.pop();
                     }*/ // código anterior
                     // código nuevo
-                    if (ident <= actualLevel) {
-                        stack.pop();
-                        if (ident != actualLevel) {
+                    if (!stack.isEmpty()) { // seguro?
+                        if (ident <= actualLevel) {
                             stack.pop();
+                            if (ident != actualLevel) {
+                                stack.pop();
+                            }
                         }
                     }
 
