@@ -1,4 +1,4 @@
-package org.ui.console;
+package org.ui.test;
 
 import org.ui.console.printer.MenuConsolePrinter;
 import org.ui.menu.MenuItem;
@@ -11,7 +11,7 @@ import java.io.IOException;
 
 import static org.ui.console.input.UserInputConsoleUtils.getUserInputIntBetweenBounds;
 
-public class UserMenuTest {
+public class Example01 {
 
     static String filename = "C:\\Users\\Sergio\\IdeaProjects\\java-user-interface\\files\\menu_magic_test.xml";
 

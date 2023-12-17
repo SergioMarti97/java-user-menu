@@ -12,12 +12,11 @@ Una situación muy común cuando se está comenzando a programar, o cuando se tr
 crear de un menú de opciones. 
 
 Esta tarea es fácil de solucionar en casos sencillos, pero puede complicarse cuando se necesita un menú con muchas 
-opciones o submenús; e implica que el programador debe de perder tiempo implementado toda la lógica que hay detrás.
-Esto puede volver el programa innecesariamente complejo, largo y poco mantenible en el tiempo, además, es repetitivo 
-porque la mayor parte del código siempre es el mismo. 
+opciones o submenús, e implica que el programador debe de perder tiempo implementado toda la lógica que hay detrás.
+Esto puede volver el programa innecesariamente complejo, largo, poco mantenible en el tiempo y, aparte, es repetitivo. 
 
 Este proyecto propone una solución para crear y gestionar menús de opciones fáciles de usar, tanto para el usuario como 
-para el programador, que ahorra varias líneas de código. Proporciona una estructura **flexible** y **robusta**, 
+para el programador, ahorrando varias líneas de código. Proporciona una estructura **flexible** y **robusta**, 
 altamente **configurable**, para adaptarse a muchas situaciones diferentes.
 
 La finalidad del proyecto es encapsular la lógica de los menús, permitiendo a los desarrolladores incorporar de manera 
@@ -109,17 +108,18 @@ Para el menú anterior, se configuró la instancia *MenuConsolePrinter* de la si
 
 ![Configuración MenuConsolePrinter](./captures/Configuracion_MenuConsolePrinter.PNG)
 
-## Ejemplo
+## Ejemplos
 
-En este ejemplo se muestra el código para crear un programa que utiliza estas clases
+En este ejemplo se muestra el código para crear un programa que utiliza estas clases para mostrar un menu de opciones 
+por consola.
 
 ```java
-package org.ui.console;
+package org.ui.test;
 
 import org.ui.console.printer.MenuConsolePrinter;
-import org.ui.menú.MenuItem;
-import org.ui.menú.MenuManager;
-import org.ui.menú.io.xml.read.MenuItemReaderXmlDOM;
+import org.ui.menu.MenuItem;
+import org.ui.menu.MenuManager;
+import org.ui.menu.io.xml.read.MenuItemReaderXmlDOM;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -127,30 +127,60 @@ import java.io.IOException;
 
 import static org.ui.console.input.UserInputConsoleUtils.getUserInputIntBetweenBounds;
 
-public class UserMenuTest {
+public class Example01 {
 
-    static String filename = "C:\\Users\\Sergio\\IdeaProjects\\java-user-interface\\files\\menú_magic_test.xml";
+  static String filename = "C:\\Users\\Sergio\\IdeaProjects\\java-user-interface\\files\\menu_magic_test.xml";
 
-    public static void main(String[] args) throws ParserConfigurationException, IOException, SAXException {
-        MenuManager mm = new MenuManager(MenuItemReaderDOM.read(filename));
+  public static void main(String[] args) throws ParserConfigurationException, IOException, SAXException {
+    MenuManager mm = new MenuManager(new MenuItemReaderXmlDOM().read(filename));
 
-        MenuConsolePrinter mcp = new MenuConsolePrinter();
+    MenuConsolePrinter mcp = new MenuConsolePrinter();
 
-        MenuItem command;
-        do {
-            mcp.show(mm);
-            System.out.print("Introduza una opción: ");
-            command = mm.onConfirm(getUserInputIntBetweenBounds(0, mm.getPeekNumChildren()) - 1);
-            System.out.println("Seleccionado: " + command.getName());
-            if (!command.hasItems() && mm.getStack().size() > 1) {
-                mm.getStack().pop();
-            }
-            // manageAction(command.getId()); # <- Implementar aquí la acción de cada opción
-        } while (command.getId() != -1);
-    }
+    MenuItem command;
+    do {
+      mcp.show(mm);
+      System.out.print("Introduza una opción: ");
+      command = mm.onConfirm(getUserInputIntBetweenBounds(0, mm.getPeekNumChildren()) - 1);
+      System.out.println("Seleccionado: " + command.getName());
+      if (!command.hasItems() && mm.getStack().size() > 1) {
+        mm.getStack().pop();
+      }
+      // manageAction(command.getId()); # <- Implementar aquí la funcionalidad
+    } while (command.getId() != -1);
+  }
 
 }
 ```
+
+Otra posible implementación que aún ahorra más líneas de código seria la siguiente:
+
+```java
+package org.ui.test;
+
+import org.ui.console.MenuManagerConsole;
+import org.ui.menu.io.xml.read.MenuItemReaderXmlDOM;
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
+
+public class Example02 {
+
+    static String filename = "C:\\Users\\Sergio\\IdeaProjects\\java-user-interface\\files\\menu_magic_test.xml";
+
+    public static void main(String[] args) throws ParserConfigurationException, IOException, SAXException {
+        MenuManagerConsole mmc = new MenuManagerConsole(new MenuItemReaderXmlDOM().read(filename));
+        
+        // Implementar aquí las acciones de cada opción
+        mmc.addAction(1, () -> System.out.println("hacer algo"));
+        
+        mmc.run();
+    }
+    
+}
+```
+
+Estos ejemplos se pueden encontrar en el módulo "java-menu-test".
 
 ## Planes a futuro
 
