@@ -3,6 +3,7 @@ package org.ui.menu.io.text;
 import org.ui.menu.MenuItem;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
@@ -58,8 +59,8 @@ public class MenuItemWriterText {
         }
     }
 
-    public void write(String filename, MenuItem mi) {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filename))) {
+    public void write(File file, MenuItem mi) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))) {
             if (isWriteWithDeque) {
                 writeDeque(bw, mi, 0);
             } else {
@@ -68,6 +69,10 @@ public class MenuItemWriterText {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void write(String filename, MenuItem mi) {
+        write(new File(filename), mi);
     }
 
     // Getter & Setter

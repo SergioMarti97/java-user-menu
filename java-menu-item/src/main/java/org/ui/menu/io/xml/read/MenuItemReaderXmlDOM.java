@@ -8,6 +8,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
+import java.io.File;
 import java.io.IOException;
 
 import static org.ui.menu.io.xml.MenuItemXMLUtils.*;
@@ -35,6 +36,13 @@ public class MenuItemReaderXmlDOM {
                 }
             }
         }
+    }
+
+    public MenuItem read(File file) throws ParserConfigurationException, IOException, SAXException {
+        Document doc = getDocument(file);
+        MenuItem mi = new MenuItem();
+        parseMenuItem(mi, doc.getDocumentElement());
+        return mi;
     }
 
     public MenuItem read(String filename) throws ParserConfigurationException, IOException, SAXException {

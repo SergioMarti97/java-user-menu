@@ -12,6 +12,7 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -31,6 +32,14 @@ public class MenuItemWriterXml {
 
     private void writeXml(Document doc, String path) {
         try (FileOutputStream output = new FileOutputStream(path)) {
+            writeXml(doc, output);
+        } catch (IOException | TransformerException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void writeXml(Document doc, File file) {
+        try (FileOutputStream output = new FileOutputStream(file)) {
             writeXml(doc, output);
         } catch (IOException | TransformerException e) {
             e.printStackTrace();
@@ -69,6 +78,13 @@ public class MenuItemWriterXml {
         Document doc = db.newDocument();
         doc.appendChild(save(doc, mi));
         writeXml(doc, path);
+    }
+
+    public void save(MenuItem mi, File file) throws ParserConfigurationException {
+        DocumentBuilder db = getDocumentBuilder();
+        Document doc = db.newDocument();
+        doc.appendChild(save(doc, mi));
+        writeXml(doc, file);
     }
 
 }

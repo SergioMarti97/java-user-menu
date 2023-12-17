@@ -3,6 +3,7 @@ package org.ui.menu.io.text;
 import org.ui.menu.MenuItem;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Stack;
@@ -24,9 +25,9 @@ public class MenuItemReaderText {
         return count;
     }
 
-    public MenuItem read(String filename) {
+    public MenuItem read(File file) {
         MenuItem mi = null;
-        try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             Stack<MenuItem> stack = new Stack<>();
 
             int count = 0, actualLevel = 0;
@@ -68,6 +69,10 @@ public class MenuItemReaderText {
             e.printStackTrace();
         }
         return mi;
+    }
+
+    public MenuItem read(String filename) {
+        return read(new File(filename));
     }
 
     // Getter & Setter

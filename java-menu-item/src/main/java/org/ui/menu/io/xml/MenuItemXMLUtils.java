@@ -22,11 +22,15 @@ public class MenuItemXMLUtils {
         return dbf.newDocumentBuilder();
     }
 
-    public static Document getDocument(String filename) throws ParserConfigurationException, IOException, SAXException {
+    public static Document getDocument(File file) throws ParserConfigurationException, IOException, SAXException {
         DocumentBuilder db = getDocumentBuilder();
-        Document doc = db.parse(new File(filename));
+        Document doc = db.parse(file);
         doc.getDocumentElement().normalize();
         return doc;
+    }
+
+    public static Document getDocument(String filename) throws ParserConfigurationException, IOException, SAXException {
+        return getDocument(new File(filename));
     }
 
 }
