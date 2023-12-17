@@ -1,4 +1,4 @@
-# Menu de opciones
+# Menu de opciones jerárquico
 
 Autor: Sergio Martí Torregrosa
 
@@ -12,8 +12,8 @@ Una situación muy común cuando se está comenzando a programar, o cuando se tr
 crear de un menú de opciones. 
 
 Esta tarea es fácil de solucionar en casos sencillos, pero puede complicarse cuando se necesita un menú con muchas 
-opciones o submenús, e implica que el programador debe de perder tiempo implementado toda la lógica que hay detrás.
-Esto puede volver el programa innecesariamente complejo, largo, poco mantenible en el tiempo y, aparte, es repetitivo. 
+opciones o submenús, e implica que el programador ptierda el tiempo implementado toda la lógica que hay detrás.
+Esto puede volver el programa innecesariamente complejo, largo y poco mantenible en el tiempo, aparte de ser repetitivo. 
 
 Este proyecto propone una solución para crear y gestionar menús de opciones fáciles de usar, tanto para el usuario como 
 para el programador, ahorrando varias líneas de código. Proporciona una estructura **flexible** y **robusta**, 
@@ -60,7 +60,7 @@ Los archivos de texto plano estructuran la información jerárquica en base a la
 
 ![Archivo de texto plano](./captures/captura_03_txt_file.PNG)
 
-Esto permite crear menus de una forma muy rápida y sencilla.
+Esto permite crear menús de una forma muy rápida y sencilla.
 
 - **MenuItemReaderText**: esta clase contiene los métodos para leer un archivo de texto plano con la información de las 
   opciones de un menú.
@@ -71,21 +71,19 @@ Esto permite crear menus de una forma muy rápida y sencilla.
 
 #### XML
 
-- **MenuItemXMLUtils**: esta clase contiene funciones y campos estáticos útiles para trabajar con archivos *xml*.
-
 - **MenuItemWriterXml**: esta clase sirve para guardar una instancia de *MenuItem* como un archivo *xml*.
 
 - **MenuItemReaderXmlDOM**: esta clase sirve para leer un archivo *xml* que contiene la información de un *MenuItem*, y 
   construir una instancia con esta información. Utiliza la tecnología de *DOM parser* (DOM son las siglas de 
   *Document Object Model*), es decir, que carga toda la información del archivo *xml* en memoria.
   
-- **MenuItemReaderXmlSax**: esta clase sirve para leer un archivo *xml* que contiene la información de un *MenuItem*, y
+- **MenuItemReaderXmlSAX**: esta clase sirve para leer un archivo *xml* que contiene la información de un *MenuItem*, y
   construir una instancia con esta información. Utiliza la tecnología de *SAX parser*, la cual gestiona más 
   eficientemente la memoria.
   
 ### Consola
 
-El módulo del proyecto "java-menú-item-console" contiene las clases para poder mostrar en consola el menú y que el 
+El módulo del proyecto "java-menú-item-console" contiene las clases para poder mostrar en consola las opciones y que el 
 usuario pueda interactuar con el menú de forma sencilla.
 
 Se puede personalizar la forma de mostrar por pantalla el menú contando con diferentes opciones.
@@ -95,6 +93,12 @@ Se puede personalizar la forma de mostrar por pantalla el menú contando con dif
   
 - **UserInputConsoleUtils**: esta clase contiene una serie de utilidades para poder manejar las entradas de usuario 
   por consola.
+  
+- **MenuManagerConsole**: esta clase contiene el bucle necesario para mostrar las opciones de un menú por consola, 
+  solicitar que el usuario que introduzca una opción y ejecuta la acción asociada. Las acciones se pueden
+  añadir mediante el método "*addAction*", pasando por parámetro el "*id*" de la opción y una función lambda. Si el 
+  programador prefiere implementar por su cuenta el código para gestionar las acciones, está disponible 
+  la clase abstracta **AbstractMenuManagerConsole**.
   
 Estas son algunas capturas.
 
@@ -110,8 +114,11 @@ Para el menú anterior, se configuró la instancia *MenuConsolePrinter* de la si
 
 ## Ejemplos
 
-En este ejemplo se muestra el código para crear un programa que utiliza estas clases para mostrar un menu de opciones 
-por consola.
+Estos ejemplos se pueden encontrar en el módulo "java-menu-test".
+
+### Ejemplo 1
+
+En este ejemplo se muestra el código para crear un programa que muestra un menú de opciones por consola.
 
 ```java
 package org.ui.test;
@@ -131,7 +138,7 @@ public class Example01 {
 
   static String filename = "C:\\Users\\Sergio\\IdeaProjects\\java-user-interface\\files\\menu_magic_test.xml";
 
-  public static void main(String[] args) throws ParserConfigurationException, IOException, SAXException {
+  public static void main(String[] args) {
     MenuManager mm = new MenuManager(new MenuItemReaderXmlDOM().read(filename));
 
     MenuConsolePrinter mcp = new MenuConsolePrinter();
@@ -152,7 +159,9 @@ public class Example01 {
 }
 ```
 
-Otra posible implementación que aún ahorra más líneas de código seria la siguiente:
+### Ejemplo 2
+
+Otra posible implementación del ejemplo anterior que aún ahorra más líneas de código sería la siguiente:
 
 ```java
 package org.ui.test;
@@ -180,7 +189,50 @@ public class Example02 {
 }
 ```
 
-Estos ejemplos se pueden encontrar en el módulo "java-menu-test".
+### Ejemplo 3
+
+Aquí se demuestra una forma de crear programáticamente un menú de opciones:
+
+```java
+package org.ui.test;
+
+import org.ui.console.MenuManagerConsole;
+import org.ui.menu.MenuItem;
+
+public class Example03 {
+
+    public static void main(String[] args) {
+        MenuItem mi = new MenuItem("Menu");
+        mi.add("Listar archivos y directorios").setId(1);
+
+        MenuItem fileMenu = mi.add("Menu Archivos").setId(2);
+        fileMenu.add("Crear fichero").setId(3);
+        fileMenu.add("Obtener propiedades/información de un archivo").setId(4);
+        fileMenu.add("Eliminar archivos").setId(5);
+
+        MenuItem dirMenu = mi.add("Menu Directorios").setId(6);
+        dirMenu.add("Crear directorio").setId(7);
+        dirMenu.add("Obtener propiedades/información de un directorio").setId(8);
+        dirMenu.add("Eliminar directorios").setId(9);
+
+        mi.add("Cambiar directorio de trabajo").setId(10);
+
+        int lastId = 10;
+        MenuItem extraMenu = mi.add("Menu extra!").setId(0);
+        for (int i = 0; i < 10; i++) {
+            int id = i + lastId;
+            extraMenu.add(String.format("Opción extra %d", id)).setId(id);
+        }
+
+        mi.add("Salir").setId(-1);
+
+        // Mostrar por consola
+        MenuManagerConsole mmc = new MenuManagerConsole(mi);
+        mmc.run();
+    }
+
+}
+```
 
 ## Planes a futuro
 

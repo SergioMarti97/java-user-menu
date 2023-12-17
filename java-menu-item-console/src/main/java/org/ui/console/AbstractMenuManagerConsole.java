@@ -8,6 +8,7 @@ import static org.ui.console.input.UserInputConsoleUtils.getUserInputIntBetweenB
 
 /**
  * Esta clase implementa el bucle para navegar las opciones
+ * todo implementar correctamente la forma de navegar submenus de varios niveles de profundidad
  */
 public abstract class AbstractMenuManagerConsole extends MenuManager {
 
