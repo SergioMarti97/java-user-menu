@@ -189,6 +189,10 @@ public class Example02 {
 }
 ```
 
+En el ejemplo anterior, se muestra que tan solo con dos líneas de código y un archivo de *xml* o de texto, se puede 
+generar toda la lógica del bucle de un programa para consola, con varias opciones y submenús. De esta forma, el 
+programador se puede centrar en las funcionalidades del programa.
+
 ### Ejemplo 3
 
 Aquí se demuestra una forma de crear programáticamente un menú de opciones:
