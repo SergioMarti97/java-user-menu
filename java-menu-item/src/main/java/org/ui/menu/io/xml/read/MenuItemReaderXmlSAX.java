@@ -1,48 +1,33 @@
 package org.ui.menu.io.xml.read;
 
 import org.ui.menu.MenuItem;
-import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
-import org.xml.sax.helpers.DefaultHandler;
 
-import static org.ui.menu.io.xml.MenuItemXMLUtils.*;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 
-public class MenuItemReaderXmlSAX extends DefaultHandler {
+public class MenuItemReaderXmlSAX {
 
-    private StringBuilder elementValue;
-
-    private MenuItem mi;
-
-    @Override
-    public void characters(char[] ch, int start, int length) throws SAXException {
-        // super.characters(ch, start, length);
-        if (elementValue == null) {
-            elementValue = new StringBuilder();
-        } else {
-            elementValue.append(ch, start, length);
+    public MenuItem read(File file) {
+        MenuItem mi = null;
+        try (FileInputStream stream = new FileInputStream(file)) {
+            SAXParserFactory factory = SAXParserFactory.newInstance();
+            SAXParser parser = factory.newSAXParser();
+            MenuItemReaderXmlSAXHandler handler = new MenuItemReaderXmlSAXHandler();
+            parser.parse(stream, handler);
+            mi = handler.getMenuItem();
+        } catch (IOException | SAXException | ParserConfigurationException e) {
+            e.printStackTrace();
         }
+        return mi;
     }
 
-    @Override
-    public void startDocument() throws SAXException {
-        // super.startDocument();
-        mi = new MenuItem();
-    }
-
-    @Override
-    public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
-        // super.startElement(uri, localName, qName, attributes);
-        if (qName.equalsIgnoreCase(TAG_MENU_ITEM)) {
-
-
-            String id = attributes.getValue(ATTR_MENU_ITEM_ID);
-            String name = attributes.getValue(ATTR_MENU_ITEM_NAME);
-        }
-    }
-
-    @Override
-    public void endElement(String uri, String localName, String qName) throws SAXException {
-        super.endElement(uri, localName, qName);
+    public MenuItem read(String filename) {
+        return read(new File(filename));
     }
 
 }
