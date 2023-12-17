@@ -15,6 +15,11 @@ import static org.ui.menu.io.xml.MenuItemXMLUtils.*;
 
 public class MenuItemReaderXmlDOM {
 
+    /**
+     * Esta función utiliza la tecnología DOM para leer un archivo XML
+     * @param mi el item del menú raíz
+     * @param root el elemento raíz
+     */
     public void parseMenuItem(MenuItem mi, Element root) {
         String id = root.getAttribute(ATTR_MENU_ITEM_ID);
         if (!id.equals("")) {

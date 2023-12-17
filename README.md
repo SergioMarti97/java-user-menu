@@ -1,6 +1,4 @@
-# Menu
-
-En este repositorio se incluyen unas clases para construir un menu de opciones simple. 
+# Menu de opciones
 
 Autor: Sergio Martí Torregrosa
 
@@ -10,41 +8,85 @@ Version: 1.0
 
 ## Descripción
 
-Las clases de este proyecto proporcionan una estructura flexible para la creación de menús de opciones fáciles de usar. 
-La finalidad del proyecto es encapsular la lógica de los menus, permitiendo a los desarrolladores incorporar de manera 
-eficiente sistemas de navegación jerárquica en sus aplicaciones. Es decir, los menús pueden contener submenús.
+Una situación muy común cuando se está comenzando a programar, o cuando se trabaja como programador, es la necesidad de 
+crear de un menú de opciones. 
+
+Esta tarea es fácil de solucionar en casos sencillos, pero puede complicarse cuando se necesita un menú con muchas 
+opciones o submenús; e implica que el programador debe de perder tiempo implementado toda la lógica que hay detrás.
+Esto puede volver el programa innecesariamente complejo, largo y poco mantenible en el tiempo, además, es repetitivo 
+porque la mayor parte del código siempre es el mismo. 
+
+Este proyecto propone una solución para crear y gestionar menús de opciones fáciles de usar, tanto para el usuario como 
+para el programador, que ahorra varias líneas de código. Proporciona una estructura **flexible** y **robusta**, 
+altamente **configurable**, para adaptarse a muchas situaciones diferentes.
+
+La finalidad del proyecto es encapsular la lógica de los menús, permitiendo a los desarrolladores incorporar de manera 
+eficiente sistemas de navegación jerárquica (los menús pueden contener submenús) en sus programas.
+
+### Características
+
+- Estructura flexible y robusta. Las clases pueden reutilizarse y extenderse para adecuarse a sus necesidades.
+- Creación de menús de opciones de forma rápida, al inicio del programa o en ejecución.
+- Encapsulamiento de la lógica para recorrer menús de opciones jerárquicos. 
+- Herramientas para solicitar al usuario diferentes *inputs* por consola.
+- Lectura y guardado en archivos con diferentes extensiones: .txt, .xml y en un futuro .json.
+- El programador puede elegir entre diferentes métodos de lectura de archivos para ahorrar memoria.
+- Mostrar en consola los menús de opciones, pudiendo configurar la apariencia.
  
-Se han tratado de seguir los principios SOLID para favorecer la máxima reutilización del proyecto.
+Se han tratado de seguir los principios de buenas prácticas en programación para favorecer la máxima reutilización 
+del código.
 
 Inspirado en: [Programming a Retro Pop-Up Menu System](https://github.com/OneLoneCoder/Javidx9/blob/master/PixelGameEngine/SmallerProjects/OneLoneCoder_PGE_RetroMenu.cpp)
 
 ## Contenido
 
-Este repositorio contiene las siguientes clases:
+Las clases principales del repositorio son las siguientes:
 
 ### Lógica interna
-- **MenuItem**: representa un item simple del menu; una de las opciones. Contiene un identificador (*id*) y un nombre 
-  (*name*), que es el que se muestra en el menu. Puede contener hijos, es decir, submenus. Por lo tanto, es un objeto 
+
+- **MenuItem**: representa un item simple del menú; una de las opciones. Contiene un identificador (*id*) y un nombre 
+  (*name*), que es el que se muestra en el menú. Puede contener hijos, es decir, submenús. Por lo tanto, es un objeto 
   con una estructura de árbol, recursiva.
     
-- **MenuManager**: es el gestor del menu. Gestiona una instancia de *MenuItem* para poder recorrer la estructura de árbol. 
-  Por ejemplo, se puede recorrer el menu desde el elemento padre, a un elemento hijo, y después volver al padre.
+- **MenuManager**: es el gestor del menú. Gestiona una instancia de *MenuItem* para poder recorrer la estructura de árbol. 
+  Por ejemplo, se puede recorrer el menú desde el elemento padre, a un elemento hijo, y después volver al padre.
 
 ### Persistencia de datos
 
-Los menus se pueden guardar como archivos *xml*.
+Los menús se pueden guardar como archivos *txt* o *xml*.
 
-- **MenuItemWriter**: esta clase sirve para guardar una instancia de *MenuItem* como un archivo *xml*.
+#### Texto plano
 
-- **MenuReaderDOM**: esta clase sirve para leer un archivo *xml* que contiene la información de un *MenuItem*, y 
+Los archivos de texto plano estructuran la información jerárquica en base a la identación, como se muestra en la imagen:
+
+![Archivo de texto plano](./captures/captura_03_txt_file.PNG)
+
+Esto permite crear menus de una forma muy rápida y sencilla.
+
+- **MenuItemReaderText**: esta clase contiene los métodos para leer un archivo de texto plano con la información de las 
+  opciones de un menú.
+  
+- **MenuItemWriterText**: esta clase contiene los métodos para escribir la información de las opciones de un menú en un 
+  archivo de texto plano. Se puede configurar para qué la escritura del archivo utilice recursividad o no. El resultado 
+  es el mismo, pero cambia la velocidad de lectura y el uso de memoria.
+
+#### XML
+
+- **MenuItemXMLUtils**: esta clase contiene funciones y campos estáticos útiles para trabajar con archivos *xml*.
+
+- **MenuItemWriterXml**: esta clase sirve para guardar una instancia de *MenuItem* como un archivo *xml*.
+
+- **MenuItemReaderXmlDOM**: esta clase sirve para leer un archivo *xml* que contiene la información de un *MenuItem*, y 
   construir una instancia con esta información. Utiliza la tecnología de *DOM parser* (DOM son las siglas de 
   *Document Object Model*), es decir, que carga toda la información del archivo *xml* en memoria.
   
-- **MenuItemXMLUtils**: esta clase contiene funciones y campos estáticos útiles para trabajar con archivos *xml*.
-
+- **MenuItemReaderXmlSax**: esta clase sirve para leer un archivo *xml* que contiene la información de un *MenuItem*, y
+  construir una instancia con esta información. Utiliza la tecnología de *SAX parser*, la cual gestiona más 
+  eficientemente la memoria.
+  
 ### Consola
 
-El módulo del proyecto "java-menu-item-console" contiene las clases para poder mostrar en consola el menú y que el 
+El módulo del proyecto "java-menú-item-console" contiene las clases para poder mostrar en consola el menú y que el 
 usuario pueda interactuar con el menú de forma sencilla.
 
 Se puede personalizar la forma de mostrar por pantalla el menú contando con diferentes opciones.
@@ -57,15 +99,15 @@ Se puede personalizar la forma de mostrar por pantalla el menú contando con dif
   
 Estas son algunas capturas.
 
-![Menu 1](C:\Users\Sergio\IdeaProjects\java-user-interface\captures\captura_01.PNG)
+![Menu 1](./captures/captura_01.PNG)
 
 La imagen anterior es el estilo por defecto. Este es otro menú con otro estilo.
 
-![Menu 2](C:\Users\Sergio\IdeaProjects\java-user-interface\captures\captura_02.PNG)
+![Menu 2](./captures/captura_02.PNG)
 
 Para el menú anterior, se configuró la instancia *MenuConsolePrinter* de la siguiente forma:
 
-![Configuración MenuConsolePrinter](C:\Users\Sergio\IdeaProjects\java-user-interface\captures\Configuracion_MenuConsolePrinter.PNG)
+![Configuración MenuConsolePrinter](./captures/Configuracion_MenuConsolePrinter.PNG)
 
 ## Ejemplo
 
@@ -75,9 +117,9 @@ En este ejemplo se muestra el código para crear un programa que utiliza estas c
 package org.ui.console;
 
 import org.ui.console.printer.MenuConsolePrinter;
-import org.ui.menu.MenuItem;
-import org.ui.menu.MenuManager;
-import org.ui.menu.io.xml.read.MenuItemReaderXmlDOM;
+import org.ui.menú.MenuItem;
+import org.ui.menú.MenuManager;
+import org.ui.menú.io.xml.read.MenuItemReaderXmlDOM;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -87,7 +129,7 @@ import static org.ui.console.input.UserInputConsoleUtils.getUserInputIntBetweenB
 
 public class UserMenuTest {
 
-    static String filename = "C:\\Users\\Sergio\\IdeaProjects\\java-user-interface\\files\\menu_magic_test.xml";
+    static String filename = "C:\\Users\\Sergio\\IdeaProjects\\java-user-interface\\files\\menú_magic_test.xml";
 
     public static void main(String[] args) throws ParserConfigurationException, IOException, SAXException {
         MenuManager mm = new MenuManager(MenuItemReaderDOM.read(filename));
@@ -118,4 +160,4 @@ En un futuro, se pretenden implementar las siguientes funcionalidades:
 - Extender las funcionalidades de los items del menú (*MenuItem*). Por ejemplo: tablas, funciones, etc.
 - Almacenar la información del estilo con que se muestra el menú en consola.
 - Añadir una clase con algunos estilos predefinidos para mostrar el menú en consola.
-- Implementar una forma de visualizar estos menus en una interfaz gráfica de JavaFX.
+- Implementar una forma de visualizar estos menús en una interfaz gráfica de JavaFX.
