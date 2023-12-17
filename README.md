@@ -12,7 +12,7 @@ Una situación muy común cuando se está comenzando a programar, o cuando se tr
 crear de un menú de opciones. 
 
 Esta tarea es fácil de solucionar en casos sencillos, pero puede complicarse cuando se necesita un menú con muchas 
-opciones o submenús, e implica que el programador ptierda el tiempo implementado toda la lógica que hay detrás.
+opciones o submenús, e implica que el programador pierda el tiempo implementado toda la lógica que hay detrás.
 Esto puede volver el programa innecesariamente complejo, largo y poco mantenible en el tiempo, aparte de ser repetitivo. 
 
 Este proyecto propone una solución para crear y gestionar menús de opciones fáciles de usar, tanto para el usuario como 
