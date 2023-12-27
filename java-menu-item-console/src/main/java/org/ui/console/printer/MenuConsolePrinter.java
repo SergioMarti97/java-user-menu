@@ -9,37 +9,41 @@ import org.ui.menu.MenuManager;
  */
 public class MenuConsolePrinter {
 
-    private String itemNameBracketLeft = "# --- ";
+    protected String itemNameBracketLeft = "# --- ";
 
-    private String itemNameBracketRight = " --- #";
+    protected String itemNameBracketRight = " --- #";
 
-    private String itemHeaderNameJoin = "";
+    protected String itemHeaderNameJoin = "";
 
-    private String indexBracketLeft = "(";
+    protected String indexBracketLeft = "(";
 
-    private String indexBracketRight = ")";
+    protected String indexBracketRight = ")";
 
-    private String indexJoin = " ";
+    protected String indexJoin = " ";
 
-    private String itemSeparator = " ";
+    protected String itemSeparator = " ";
 
-    private int incSpacesToIdent = 2;
+    protected String submenuMarker = " *";
 
-    private boolean showItemHeaderName = true;
+    protected int incSpacesToIdent = 2;
 
-    private boolean itemHeaderNameLineBreak = true;
+    protected boolean showItemHeaderName = true;
 
-    private boolean showIndexes = true;
+    protected boolean itemHeaderNameLineBreak = true;
 
-    private boolean showItemsIds = false;
+    protected boolean showIndexes = true;
 
-    private boolean startIndexAtZero = false;
+    protected boolean showItemsIds = false;
 
-    private boolean showItemsNames = true;
+    protected boolean startIndexAtZero = false;
 
-    private boolean itemsOnOneLine = false;
+    protected boolean showItemsNames = true;
 
-    private boolean expandChildren = false;
+    protected boolean itemsOnOneLine = false;
+
+    protected boolean expandChildren = false;
+
+    protected boolean showSubmenuMarker = false;
 
     public MenuConsolePrinter() {
     }
@@ -92,6 +96,9 @@ public class MenuConsolePrinter {
 
                 if (showItemsNames) {
                     out.append(item.getItem(i).getName());
+                }
+                if (showSubmenuMarker && item.getItem(i).hasItems()) {
+                    out.append(submenuMarker);
                 }
                 out.append(itemsOnOneLine ? itemSeparator : '\n');
 
@@ -258,6 +265,22 @@ public class MenuConsolePrinter {
 
     public void setIncSpacesToIdent(int incSpacesToIdent) {
         this.incSpacesToIdent = incSpacesToIdent;
+    }
+
+    public String getSubmenuMarker() {
+        return submenuMarker;
+    }
+
+    public void setSubmenuMarker(String submenuMarker) {
+        this.submenuMarker = submenuMarker;
+    }
+
+    public boolean isShowSubmenuMarker() {
+        return showSubmenuMarker;
+    }
+
+    public void setShowSubmenuMarker(boolean showSubmenuMarker) {
+        this.showSubmenuMarker = showSubmenuMarker;
     }
 
     /*public void show() {

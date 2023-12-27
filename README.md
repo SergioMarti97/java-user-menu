@@ -9,7 +9,7 @@ Version: 1.0
 ## Descripción
 
 Una situación muy común cuando se está comenzando a programar, o cuando se trabaja como programador, es la necesidad de 
-crear de un menú de opciones. 
+crear un menú de opciones. 
 
 Esta tarea es fácil de solucionar en casos sencillos, pero puede complicarse cuando se necesita un menú con muchas 
 opciones o submenús, e implica que el programador pierda el tiempo implementado toda la lógica que hay detrás.

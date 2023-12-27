@@ -7,6 +7,14 @@ public class MenuItemTable extends MenuItem implements ITable<MenuItem> {
 
     protected Vec2di table = new Vec2di(1, 0);
 
+    public int calTotalRows() {
+        return (items.size() / getNumCols()) + (((items.size() / getNumCols()) > 0) ? 1 : 0);
+    }
+
+    public int calTotalCols(MenuItemTable mit) {
+        return (items.size() / getNumRows()) + (((items.size() / getNumRows()) > 0) ? 1 : 0);
+    }
+
     @Override
     public int getNumRows() {
         return table.getY();

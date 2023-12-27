@@ -1,4 +1,4 @@
-package org.ui.console.printer;
+package org.ui.console;
 
 import org.junit.jupiter.api.Test;
 import org.ui.menu.MenuItem;
@@ -8,11 +8,13 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 
-class MenuConsolePrinterTest {
+import static org.junit.jupiter.api.Assertions.*;
+
+class MenuManagerConsoleTest {
 
     final String filename = "C:\\Users\\Sergio\\IdeaProjects\\java-user-interface\\files\\menu_test.xml";
 
-    final MenuConsolePrinter mcp = new MenuConsolePrinter();
+    final MenuManagerConsole mmc = new MenuManagerConsole();
 
     MenuItem readMenu(String filename) {
         try {
@@ -24,21 +26,9 @@ class MenuConsolePrinterTest {
     }
 
     @Test
-    void showMenu() {
-        var mi = readMenu(filename);
-        mcp.setIndexBracketLeft("[");
-        mcp.setIndexBracketRight("]");
-        mcp.setExpandChildren(false);
-        mcp.show(mi);
+    void run() {
+        mmc.open(readMenu(filename));
+        // mmc.run();
     }
-
-    @Test
-    void showMenuSubmenuMarker() {
-        var mi = readMenu(filename);
-        mcp.setShowSubmenuMarker(true);
-        mcp.show(mi);
-    }
-
-
 
 }
