@@ -52,6 +52,11 @@ public class MenuItem implements IGetSize, IEnable {
         this.name = name;
     }
 
+    public MenuItem(final int id, final String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public MenuItem setId(int id) {
         this.id = id;
         return this;

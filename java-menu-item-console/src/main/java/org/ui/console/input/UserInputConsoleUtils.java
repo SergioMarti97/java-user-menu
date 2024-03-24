@@ -51,7 +51,7 @@ public class UserInputConsoleUtils {
         boolean condition;
         do {
             inputInt = getUserInputInt();
-            condition = inputInt > min && inputInt <= max;
+            condition = inputInt >= min && inputInt <= max;
             if (!condition) {
                 System.out.printf("El número introducido debe de estar entre %d y %d.\n", min, max);
             }
