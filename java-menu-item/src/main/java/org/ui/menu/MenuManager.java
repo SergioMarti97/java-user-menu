@@ -42,28 +42,31 @@ public class MenuManager {
         this(new File(filename));
     }
 
-    // TODO: 24/03/2024 esta función debería formar parte de MenuItem
-    // TODO: 24/03/2024 implementar la función "write" para escribir el menu que está trabajando actualmente
-    /**
-     * Lee un archivo para crear el MenuItem que manejará el MenuManager
-     * @param file el archivo con la información del MenuItem
-     * @return MenuItem
-     */
+    // input output methods
+
     public MenuItem read(final File file) throws ParserConfigurationException, IOException, SAXException {
-        MenuItem mi = null;
-        if (file != null && file.exists()) {
-            String name = file.getName();
-            String extension = name.substring(name.lastIndexOf("."));
-            switch (extension) {
-                case ".xml":
-                    mi = new MenuItemReaderXmlDOM().read(file);
-                    break;
-                case ".txt":
-                    mi = new MenuItemReaderText().read(file);
-                    break;
+        return new MenuItem(file);
+    }
+
+    public MenuItem read(final String filename) throws ParserConfigurationException, IOException, SAXException {
+        return new MenuItem(filename);
+    }
+
+    public void save(final File file) throws IOException, ParserConfigurationException {
+        if (!menus.isEmpty()) {
+            Stack<?> copiedStack = (Stack<?>) menus.clone();
+            do {
+                copiedStack.pop();
+            } while (menus.size() > 1);
+            if (copiedStack.peek() instanceof MenuItem) {
+                MenuItem peek = (MenuItem) copiedStack.peek();
+                peek.save(file);
             }
         }
-        return mi;
+    }
+
+    public void save(final String filename) throws IOException, ParserConfigurationException {
+        save(new File(filename));
     }
 
     /**

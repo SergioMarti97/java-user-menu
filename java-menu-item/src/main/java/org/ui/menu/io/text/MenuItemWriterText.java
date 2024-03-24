@@ -24,12 +24,12 @@ public class MenuItemWriterText {
     /**
      * Esta función es recursiva
      */
-    public void write(BufferedWriter bw, MenuItem mi, int ident) throws IOException {
+    public void save(BufferedWriter bw, MenuItem mi, int ident) throws IOException {
         bw.write(toString(mi, ident));
         if (mi.hasItems()) {
             ident++;
             for (var items : mi.getItems()) {
-                write(bw, items, ident);
+                save(bw, items, ident);
             }
         }
     }
@@ -59,20 +59,20 @@ public class MenuItemWriterText {
         }
     }
 
-    public void write(File file, MenuItem mi) {
+    public void save(MenuItem mi, File file) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))) {
             if (isWriteWithDeque) {
                 writeDeque(bw, mi, 0);
             } else {
-                write(bw, mi, 0);
+                save(bw, mi, 0);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void write(String filename, MenuItem mi) {
-        write(new File(filename), mi);
+    public void save(MenuItem mi, String filename) {
+        save(mi, new File(filename));
     }
 
     // Getter & Setter

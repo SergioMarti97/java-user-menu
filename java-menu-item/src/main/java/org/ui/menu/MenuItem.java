@@ -1,10 +1,17 @@
 package org.ui.menu;
 
 import org.geom.vector.vec2d.Vec2di;
+import org.xml.sax.SAXException;
 
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
+import java.io.File;
+
+import static org.ui.menu.io.MenuItemIOUtils.readMenuItem;
+import static org.ui.menu.io.MenuItemIOUtils.saveMenuItem;
 
 /**
  * Esta clase es la representación de un item o objeto
@@ -67,6 +74,18 @@ public class MenuItem implements IGetSize, IEnable {
         return this;
     }
 
+    public MenuItem(MenuItem other) {
+        this.id = other.id;
+        this.name = other.name;
+        this.isEnabled = other.isEnabled;
+        itemPointer.putAll(new HashMap<>(other.itemPointer));
+        items.addAll(new ArrayList<>(other.items));
+    }
+
+    public MenuItem(final File file) throws ParserConfigurationException, IOException, SAXException {
+        read(file);
+    }
+
     public MenuItem getItem(int index) {
         return items.get(index);
     }
@@ -106,6 +125,34 @@ public class MenuItem implements IGetSize, IEnable {
 
     public int numItems() {
         return items.size();
+    }
+
+    public void copy(MenuItem other) {
+        this.id = other.id;
+        this.name = other.name;
+        this.isEnabled = other.isEnabled;
+        itemPointer.putAll(new HashMap<>(other.itemPointer));
+        items.addAll(new ArrayList<>(other.items));
+    }
+
+    // input output methods
+
+    public void read(final File file) throws ParserConfigurationException, IOException, SAXException {
+        MenuItem mi = readMenuItem(file);
+        assert mi != null;
+        copy(mi);
+    }
+
+    public void read(final String filename) throws ParserConfigurationException, IOException, SAXException {
+        read(new File(filename));
+    }
+
+    public void save(final File file) throws IOException, ParserConfigurationException {
+        saveMenuItem(this, file);
+    }
+
+    public void save(final String filename) throws IOException, ParserConfigurationException {
+        save(new File(filename));
     }
 
     // Getters

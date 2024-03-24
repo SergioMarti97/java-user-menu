@@ -11,7 +11,6 @@ import static org.ui.console.input.UserInputConsoleUtils.getUserInputIntBetweenB
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Objects;
 
 /**
  * Esta clase implementa el bucle para navegar las opciones

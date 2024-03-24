@@ -26,7 +26,7 @@ class MenuItemWriterTextTest {
     @Test
     void write() {
         MenuItem mi1 = r.read(filename1);
-        w.write(filename2, mi1);
+        w.save(mi1, filename2);
         MenuItem mi2 = r.read(filename2);
         assertEquals(mi1.numItems(), mi2.numItems());
     }
@@ -36,14 +36,14 @@ class MenuItemWriterTextTest {
         MenuItem mi = new MenuItemReaderXmlDOM().read(filenameXml);
         boolean prev = w.isWriteWithDeque();
         w.setWriteWithDeque(true);
-        w.write(filename2, mi);
+        w.save(mi, filename2);
         w.setWriteWithDeque(prev);
     }
 
     @Test
     void xmlToText() throws ParserConfigurationException, IOException, SAXException {
         MenuItem mi = new MenuItemReaderXmlDOM().read(filenameXml);
-        w.write(filename2, mi);
+        w.save(mi, filename2);
     }
 
 }
